@@ -164,6 +164,7 @@
     <None Include="Data\Default_Ticket_Database.dat" />
     <None Include="Data\Passenger.dat" />
     <None Include="Data\users.dat" />
+    <None Include="readme.md" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

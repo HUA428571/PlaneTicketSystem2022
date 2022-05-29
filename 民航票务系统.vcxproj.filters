@@ -84,5 +84,8 @@
     <None Include="Data\Default_Ticket_Database.dat">
       <Filter>资源文件\Data</Filter>
     </None>
+    <None Include="readme.md">
+      <Filter>资源文件</Filter>
+    </None>
   </ItemGroup>
 </Project>
