@@ -20,7 +20,7 @@ void PrintLoading()
 			outtextxy(610, 550, "你好！");
 		else
 			outtextxy(480, 550, "欢迎访问管理员后台管理系统");
-		Sleep(8);
+		Sleep(2);
 	}
 	cleardevice();
 	for (int i = 0; i < 156; i++)
