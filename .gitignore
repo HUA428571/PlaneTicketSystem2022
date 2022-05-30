@@ -361,3 +361,6 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/libmysql.lib
+/libmysql.dll
+/Data/Default_Ticket_Database.dat
