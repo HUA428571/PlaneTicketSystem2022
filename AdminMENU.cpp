@@ -1,5 +1,5 @@
 #include"AdminMENU.h"
-int AdminMENU(FlightID* ID, FlightTicket DATA[][999], int& IDcount)
+int AdminMENU(MYSQL mysql, FlightID* ID, FlightTicket DATA[][999], int& IDcount)
 {
 	// 设置背景色为淡白色
 	setbkcolor(RGB(255, 255, 253));
@@ -19,25 +19,25 @@ int AdminMENU(FlightID* ID, FlightTicket DATA[][999], int& IDcount)
 	loadimage(&BG, _T(".\\IMAGES\\Home.png"), 1280, 720);
 	putimage(0, 0, &BG);	// 显示背景
 	int MENUchoice;
-	MENUchoice = AdminMENU_MainMENU(ID, DATA, IDcount);		//先进入主页
+	MENUchoice = AdminMENU_MainMENU(mysql, ID, DATA, IDcount);		//先进入主页
 	while (true)											//循环
 	{
 		switch (MENUchoice)
 		{
 		case 0:
-			MENUchoice = AdminMENU_MainMENU(ID, DATA, IDcount);
+			MENUchoice = AdminMENU_MainMENU(mysql, ID, DATA, IDcount);
 			break;
 		case 1:
-			MENUchoice = AdminMENU_SearchMENU(ID, DATA, IDcount);
+			MENUchoice = AdminMENU_SearchMENU(mysql, ID, DATA, IDcount);
 			break;
 		case 2:
-			MENUchoice = AdminMENU_AddMENU(ID, DATA, IDcount);
+			MENUchoice = AdminMENU_AddMENU(mysql, ID, DATA, IDcount);
 			break;
 		case 3:
-			MENUchoice = AdminMENU_DeleteMENU(ID, DATA, IDcount);
+			MENUchoice = AdminMENU_DeleteMENU(mysql, ID, DATA, IDcount);
 			break;
 		case 4:
-			MENUchoice = AdminMENU_ChangeMENU(ID, DATA, IDcount);
+			MENUchoice = AdminMENU_ChangeMENU(mysql, ID, DATA, IDcount);
 			break;
 		case 61:
 			PrintExit_AutoSAVE(ID, DATA, IDcount);
@@ -50,7 +50,7 @@ int AdminMENU(FlightID* ID, FlightTicket DATA[][999], int& IDcount)
 		}
 	}
 }
-int AdminMENU_MainMENU(FlightID* ID, FlightTicket DATA[][999], int& IDcount)
+int AdminMENU_MainMENU(MYSQL mysql, FlightID* ID, FlightTicket DATA[][999], int& IDcount)
 {
 	PrintHomeBG(IDcount);
 	char Location[4][100] = { ".\\Data\\Default_FlightID_Database.txt",".\\Data\\Default_Ticket_Database.dat",".\\Data\\FlightID.txt",".\\Data\\Ticket.dat" };
@@ -516,7 +516,7 @@ int AdminMENU_MainMENU_SaveTicketDatabase(FlightID* ID, FlightTicket DATA[][999]
 	return 0;
 }
 
-int AdminMENU_SearchMENU(FlightID* ID, FlightTicket DATA[][999], int IDcount)
+int AdminMENU_SearchMENU(MYSQL mysql, FlightID* ID, FlightTicket DATA[][999], int IDcount)
 {
 	PrintSearchBG(IDcount);
 	int SearchReasult[999];//用于存储搜索结果
@@ -533,7 +533,7 @@ int AdminMENU_SearchMENU(FlightID* ID, FlightTicket DATA[][999], int IDcount)
 		case 4:
 			return MENUchoice;
 		case 11:
-			MENUchoice = AdminMENU_SearchMENU_SearchByID(ID, DATA, IDcount, SearchReasult, SearchCount);
+			MENUchoice = AdminMENU_SearchMENU_SearchByID(mysql, ID, DATA, IDcount, SearchReasult, SearchCount);
 			break;
 		case 12:
 			MENUchoice = AdminMENU_SearchMENU_SearchByDepartureAirport(ID, DATA, IDcount, SearchReasult, SearchCount);
@@ -547,12 +547,12 @@ int AdminMENU_SearchMENU(FlightID* ID, FlightTicket DATA[][999], int IDcount)
 		}
 	}
 }
-int AdminMENU_SearchMENU_SearchByID(FlightID* ID, FlightTicket DATA[][999], int IDcount, int* SearchReasult, int& SearchCount)
+int AdminMENU_SearchMENU_SearchByID(MYSQL mysql, FlightID* ID, FlightTicket DATA[][999], int IDcount, int* SearchReasult, int& SearchCount)
 {
 	PrintSearchBG(IDcount);
 	char search[12];
 	C_InputBox(search, 11, 135, 300, "CA101");
-	SearchFlightID(ID, search, IDcount, SearchReasult, SearchCount);//查找航班号，返回查找到航班个数
+	SearchFlightID(mysql, ID, search, IDcount, SearchReasult, SearchCount);//查找航班号，返回查找到航班个数
 	switch (SearchCount)
 	{
 	case 0:
@@ -643,7 +643,7 @@ int AdminMENU_SearchMENU_SearchByDepartureAndArrivalAirport(FlightID* ID, Flight
 	return AdminMENU_SearchMENU_MENUChoose();
 }
 
-int AdminMENU_AddMENU(FlightID* ID, FlightTicket DATA[][999], int& IDcount)
+int AdminMENU_AddMENU(MYSQL mysql, FlightID* ID, FlightTicket DATA[][999], int& IDcount)
 {
 	Resize(NULL, 480, 500);
 	cleardevice();
@@ -713,7 +713,7 @@ int AdminMENU_AddMENU(FlightID* ID, FlightTicket DATA[][999], int& IDcount)
 			clearrectangle(A_RIGHT_TEXT_START, 100, 480, 125);
 			C_InputBox(Input, 9, A_LEFT_LINE_START, 100, 90, 20, "CA101");
 			line(A_LEFT_LINE_START, 122, A_LEFT_LINE_END, 122);
-			if (!SearchFlightID(ID, Input, IDcount, SearchReasult, SearchCount))
+			if (!SearchFlightID(mysql, ID, Input, IDcount, SearchReasult, SearchCount))
 			{
 				NEW.Carrier[0] = Input[0];
 				NEW.Carrier[1] = Input[1];
@@ -955,7 +955,7 @@ int AdminMENU_AddMENU(FlightID* ID, FlightTicket DATA[][999], int& IDcount)
 	}
 }
 
-int AdminMENU_DeleteMENU(FlightID* ID, FlightTicket DATA[][999], int& IDcount)
+int AdminMENU_DeleteMENU(MYSQL mysql, FlightID* ID, FlightTicket DATA[][999], int& IDcount)
 {
 	PrintBG(IDcount);
 	settextstyle(25, 0, FONT);
@@ -963,7 +963,7 @@ int AdminMENU_DeleteMENU(FlightID* ID, FlightTicket DATA[][999], int& IDcount)
 	int SearchReasult[999];
 	int SearchCount;
 	InputBox(Delete, 12, "请输入你想删除的航班号\n完整航班号，eg CA101");
-	SearchFlightID(ID, Delete, IDcount, SearchReasult, SearchCount);//查找航班号，返回查找到航班个数
+	SearchFlightID(mysql, ID, Delete, IDcount, SearchReasult, SearchCount);//查找航班号，返回查找到航班个数
 	switch (SearchCount)
 	{
 	case 0:
@@ -997,14 +997,14 @@ int AdminMENU_DeleteMENU(FlightID* ID, FlightTicket DATA[][999], int& IDcount)
 	return AdminMENU_MENUChoose();
 }
 
-int AdminMENU_ChangeMENU(FlightID* ID, FlightTicket DATA[][999], int IDcount)
+int AdminMENU_ChangeMENU(MYSQL mysql, FlightID* ID, FlightTicket DATA[][999], int IDcount)
 {
 	PrintBG(IDcount);
 	char Input[12] = { 'X','X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' };
 	int SearchReasult[999];
 	int SearchCount;
 	InputBox(Input, 12, "请输入需要更改航班的航班号\n完整航班号，eg CA101");
-	if (SearchFlightID(ID, Input, IDcount, SearchReasult, SearchCount) != 1)
+	if (SearchFlightID(mysql, ID, Input, IDcount, SearchReasult, SearchCount) != 1)
 	{
 		settextstyle(25, 0, FONT);
 		outtextxy(380, 200, "没有找到符合要求的航班！");
@@ -1102,7 +1102,7 @@ int AdminMENU_ChangeMENU(FlightID* ID, FlightTicket DATA[][999], int IDcount)
 			clearrectangle(A_RIGHT_TEXT_START, 100, 480, 125);
 			C_InputBox(Input, 9, A_LEFT_LINE_START, 100, 90, 20, id);
 			line(A_LEFT_LINE_START, 122, A_LEFT_LINE_END, 122);
-			if (!SearchFlightID(ID, Input, IDcount, SearchReasult, SearchCount))
+			if (!SearchFlightID(mysql, ID, Input, IDcount, SearchReasult, SearchCount))
 			{
 				tmp.Carrier[0] = Input[0];
 				tmp.Carrier[1] = Input[1];

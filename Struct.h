@@ -2,6 +2,7 @@
 //在本文件中存储结构体定义和宏定义
 //本文件被所有的其余文件包含
 #include<iostream>
+#include<mysql.h>
 #define PI 3.1415926536
 //全局字体格式
 #define FONT "黑体"
@@ -13,6 +14,7 @@
 #define A_LEFT_LINE_START 150
 #define A_LEFT_LINE_END 240
 #define A_RIGHT_TEXT_START 260
+
 
 using namespace std;
 

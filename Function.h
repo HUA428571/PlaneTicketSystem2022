@@ -28,7 +28,7 @@ int ImportUserDatabase(USER p[], Passenger m[]);
 int SaveUserDatabase(USER p[], char* Location);
 int SavePassengerDatabase(Passenger m[], char* Location);
 //查找航班号，返回查找到航班个数
-int SearchFlightID(FlightID*, char*, int, int*, int&);
+int SearchFlightID(MYSQL mysql, FlightID*, char*, int, int*, int&);
 //查找航起飞地，返回查找到航班个数
 int SearchFlightDepartureAirport(FlightID*, char*, int, int*, int&);
 //查找航降落地，返回查找到航班个数

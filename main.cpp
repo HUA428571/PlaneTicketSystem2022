@@ -5,7 +5,6 @@
 #include"CustomMenu.h"
 #include"StartMENU.h"
 #include<stdlib.h>
-#include<mysql.h>
 using namespace std;
 //主函数
 int main()
@@ -21,8 +20,7 @@ int main()
 	int fail = 0;
 
 	MYSQL mysql;    //数据库句柄
-	MYSQL_RES* res; //查询结果集
-	MYSQL_ROW row;  //记录结构体
+
 	//初始化数据库
 	mysql_init(&mysql);
 	//设置字符编码
@@ -58,12 +56,14 @@ int main()
 	}
 	//int Choice = StartMENU(U, P);
 	//创建绘图窗口，大小为1280x720像素，没有关闭按钮
-//	initgraph(1280, 720, EW_NOCLOSE);
+	initgraph(1280, 720, EW_NOCLOSE);
 	//if (Choice == 0)
-		AdminMENU(ID, DATA, FlightID_Count);
+		AdminMENU(mysql, ID, DATA, FlightID_Count);
 	//else
 	//	CustomMenu(ID, DATA, FlightID_Count, P, U, FO, &custom, Choice);
 
+	MYSQL_RES* res; //查询结果集
+	MYSQL_ROW row;  //记录结构体
 	//查询数据
 	int ret = mysql_query(&mysql, "select * from flightid;");
 	printf("ret: %d\n", ret);

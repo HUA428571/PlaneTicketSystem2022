@@ -142,7 +142,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AdminMENU.cpp" />
-    <ClCompile Include="CustomMenu.cpp" />
+    <ClCompile Include="CustomMenu.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="Function.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Match.cpp" />
