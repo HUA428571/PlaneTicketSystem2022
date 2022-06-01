@@ -233,7 +233,7 @@ int SearchFlightID(MYSQL mysql, FlightID* ID, char* search, int IDcount, int* Se
 	{
 		int ret;
 		char query_str[256] = "";
-		sprintf(query_str, "select * from flightid where ID = \"%s\";", search);
+		sprintf(query_str, "select idFlightID from flightid where ID = \"%s\";", search);
 		ret = mysql_query(&mysql, query_str);
 		res = mysql_store_result(&mysql);
 		if (ret == 0)
@@ -244,33 +244,32 @@ int SearchFlightID(MYSQL mysql, FlightID* ID, char* search, int IDcount, int* Se
 				SearchCount++;
 			}
 		}
-
-
-
-
-//		for (int i = 0; i < IDcount; i++)
-//		{
-//			if (!strcmp(search, ID[i].ID))
-//			{
-//				SearchReasult[SearchCount] = i;
-//				SearchCount++;
-//			}
-//		}
 	}
 	else
 	{
-		for (int i = 0; i < IDcount; i++)
+		int ret;
+		char carrier[3]="";//´æ´¢º½¿Õ¹«Ë¾
+		carrier[0] = search[0];
+		carrier[1] = search[1];
+		carrier[2] = '\0';
+		char FID[5] = "";//´æ´¢º½¿Õ¹«Ë¾
+		int i = 2;
+		while (search[i] != '\0')
 		{
-			char a[12];//´æ´¢º½¿Õ¹«Ë¾+º½°àºÅµÄºÏÌå
-			a[0] = ID[i].Carrier[0];
-			a[1] = ID[i].Carrier[1];
-			a[2] = '\0';
-			strcat(a, ID[i].ID);
-			if (!_stricmp(search, a))
+			FID[i - 2] = search[i];
+			i++;
+		}
+		FID[i - 2] = '\0';
+		char query_str[256] = "";
+		sprintf(query_str, "select * from flightid where Carrier = \"%s\" AND ID = \"%s\";", carrier, FID);
+		ret = mysql_query(&mysql, query_str);
+		res = mysql_store_result(&mysql);
+		if (ret == 0)
+		{
+			while (row = mysql_fetch_row(res))
 			{
-				SearchReasult[SearchCount] = i;
+				SearchReasult[SearchCount] = atoi(row[0]);
 				SearchCount++;
-				return SearchCount;
 			}
 		}
 	}
