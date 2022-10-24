@@ -26,7 +26,7 @@ int main()
 	//设置字符编码
 	mysql_options(&mysql, MYSQL_SET_CHARSET_NAME, "gbk");
 	//连接数据库
-	if (mysql_real_connect(&mysql, "127.0.0.1", "B19030314", "B19030314", "dbexp3", 3306, NULL, 0) == NULL) {
+	if (mysql_real_connect(&mysql, "127.0.0.1", "u1B19030314", "B19030314", "dbexp3", 3306, NULL, 0) == NULL) {
 		printf("错误原因： %s\n", mysql_error(&mysql));
 		printf("连接失败！\n");
 		exit(-1);
@@ -56,9 +56,9 @@ int main()
 	}
 	//int Choice = StartMENU(U, P);
 	//创建绘图窗口，大小为1280x720像素，没有关闭按钮
-	initgraph(1280, 720, EW_NOCLOSE);
+	//initgraph(1280, 720, EW_NOCLOSE);
 	//if (Choice == 0)
-		AdminMENU(mysql, ID, DATA, FlightID_Count);
+	//	AdminMENU(mysql, ID, DATA, FlightID_Count);
 	//else
 	//	CustomMenu(ID, DATA, FlightID_Count, P, U, FO, &custom, Choice);
 

@@ -20,7 +20,7 @@ int AdminMENU_MainMENU_SaveTicketDatabase(FlightID* ID, FlightTicket DATA[][999]
 
 int AdminMENU_SearchMENU(MYSQL mysql, FlightID* ID, FlightTicket DATA[][999], int IDcount);
 int AdminMENU_SearchMENU_SearchByID(MYSQL mysql, FlightID*, FlightTicket DATA[][999], int IDcount, int* SearchReasult, int& SearchCount);
-int AdminMENU_SearchMENU_SearchByDepartureAirport(FlightID*, FlightTicket DATA[][999], int IDcount, int* SearchReasult, int& SearchCount);
+int AdminMENU_SearchMENU_SearchByDepartureAirport(MYSQL mysql, FlightID*, FlightTicket DATA[][999], int IDcount, int* SearchReasult, int& SearchCount);
 int AdminMENU_SearchMENU_SearchByArrivalAirport(FlightID*, FlightTicket DATA[][999], int IDcount, int* SearchReasult, int& SearchCount);
 int AdminMENU_SearchMENU_SearchByDepartureAndArrivalAirport(FlightID* ID, FlightTicket DATA[][999], int IDcount, int* SearchReasult, int& SearchCount);
 

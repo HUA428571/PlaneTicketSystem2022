@@ -536,7 +536,7 @@ int AdminMENU_SearchMENU(MYSQL mysql, FlightID* ID, FlightTicket DATA[][999], in
 			MENUchoice = AdminMENU_SearchMENU_SearchByID(mysql, ID, DATA, IDcount, SearchReasult, SearchCount);
 			break;
 		case 12:
-			MENUchoice = AdminMENU_SearchMENU_SearchByDepartureAirport(ID, DATA, IDcount, SearchReasult, SearchCount);
+			MENUchoice = AdminMENU_SearchMENU_SearchByDepartureAirport(mysql, ID, DATA, IDcount, SearchReasult, SearchCount);
 			break;
 		case 13:
 			MENUchoice = AdminMENU_SearchMENU_SearchByArrivalAirport(ID, DATA, IDcount, SearchReasult, SearchCount);
@@ -569,12 +569,12 @@ int AdminMENU_SearchMENU_SearchByID(MYSQL mysql, FlightID* ID, FlightTicket DATA
 	}
 	return AdminMENU_SearchMENU_MENUChoose();
 }
-int AdminMENU_SearchMENU_SearchByDepartureAirport(FlightID* ID, FlightTicket DATA[][999], int IDcount, int* SearchReasult, int& SearchCount)
+int AdminMENU_SearchMENU_SearchByDepartureAirport(MYSQL mysql, FlightID* ID, FlightTicket DATA[][999], int IDcount, int* SearchReasult, int& SearchCount)
 {
 	PrintSearchBG(IDcount);
 	char search[12];
 	C_InputBox(search, 11, 135, 350, "PEK");
-	SearchFlightDepartureAirport(ID, search, IDcount, SearchReasult, SearchCount);//查找航班号，返回查找到航班个数
+	SearchFlightDepartureAirport(mysql, ID, search, IDcount, SearchReasult, SearchCount);//查找航班号，返回查找到航班个数
 	switch (SearchCount)
 	{
 	case 0:
@@ -953,6 +953,12 @@ int AdminMENU_AddMENU(MYSQL mysql, FlightID* ID, FlightTicket DATA[][999], int& 
 			MENUchoice = 0;
 		}
 	}
+
+	//	char query_str[256] = "";
+	//	char search[256] = "";
+	//	sprintf(query_str, "insert into flightid (idFlightID, Carrier, ID, FlyDay, DepartureAirport, ArrivalAirport, DepartureTime, ArrivalTime, TravelTimeHour, TravelTimeMinute, Price, AircraftType, Class ) values (IDcount + 1, carrier, id, NEW.FlyDay, NEW.DepartureAirport, NEW.ArrivalAirport, NEW.DepartureTime, NEW.ArrivalTime, NEW.TravelTimeHour, NEW.TravelTimeMinute, NEW.TravelTimeHour * 675 + NEW.TravelTimeMinute * 11.25, NEW.AircraftType, NEW.Class)");
+	//	sprintf(query_str, "delete idFlightID from flightid where ID = \"%s\";", search);
+
 }
 
 int AdminMENU_DeleteMENU(MYSQL mysql, FlightID* ID, FlightTicket DATA[][999], int& IDcount)

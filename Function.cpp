@@ -248,7 +248,7 @@ int SearchFlightID(MYSQL mysql, FlightID* ID, char* search, int IDcount, int* Se
 	else
 	{
 		int ret;
-		char carrier[3]="";//存储航空公司
+		char carrier[3] = "";//存储航空公司
 		carrier[0] = search[0];
 		carrier[1] = search[1];
 		carrier[2] = '\0';
@@ -276,14 +276,23 @@ int SearchFlightID(MYSQL mysql, FlightID* ID, char* search, int IDcount, int* Se
 	return SearchCount;
 }
 //查找航起飞地，返回查找到航班个数
-int SearchFlightDepartureAirport(FlightID* ID, char* search, int IDcount, int* SearchReasult, int& SearchCount)//查找航起飞地，返回查找到航班个数
+int SearchFlightDepartureAirport(MYSQL mysql, FlightID* ID, char* search, int IDcount, int* SearchReasult, int& SearchCount)//查找航起飞地，返回查找到航班个数
 {
 	SearchCount = 0; //记录搜索到的航班个数,先置零
-	for (int i = 0; i < IDcount; i++)
+	MYSQL_RES* res; //查询结果集
+	MYSQL_ROW row;  //记录结构体
+	int ret;
+	char query_str[256] = "";
+	char airport[4] = "";//存储航空公司
+	strncpy(airport, search, 3);
+	sprintf(query_str, "select idFlightID from flightid where DepartureAirport = \"%s\";", airport);
+	ret = mysql_query(&mysql, query_str);
+	res = mysql_store_result(&mysql);
+	if (ret == 0)
 	{
-		if (!_strnicmp(search, ID[i].DepartureAirport, 3))
+		while (row = mysql_fetch_row(res))
 		{
-			SearchReasult[SearchCount] = i;
+			SearchReasult[SearchCount] = atoi(row[0]);
 			SearchCount++;
 		}
 	}
