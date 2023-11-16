@@ -20,6 +20,15 @@
 * 本程序我们主要设计了三个界面：欢迎界面、管理员界面、普通用户界面。分别由汤艺林同学、华文嘉同学、雷尚远同学进行编写。我们基本完成了一个较为完整可用且实用民航票务管理系统。当然，由于我们的水平，本程序和那些真正的管理系统有非常大的差别，但是在一定范围内的基本功能，如登录注册，航线航班数据的简单管理，订票，订单管理，乘客添加均已实现。
 * 这个程序必定和真正意义上的民航票务系统有很大的差别，编写这个程序的目的主要还是学习巩固我们的相关知识，初步了解一下程序设计，同时加强一下自己的交流沟通能力。可以说，这些，我们做到了。
 
+## 程序截图
+![image](https://github.com/HUA428571/PlaneTicketSystem2022/assets/55879217/51ec03d4-888c-4cdb-94f3-eafdb565a94f)
+![image](https://github.com/HUA428571/PlaneTicketSystem2022/assets/55879217/350bf992-ca32-4a85-8425-82a6781518a4)
+![image](https://github.com/HUA428571/PlaneTicketSystem2022/assets/55879217/0046eaf3-3b64-4fa6-9362-1aa455d68ac5)
+![image](https://github.com/HUA428571/PlaneTicketSystem2022/assets/55879217/3ab04e8f-5238-41e5-b29d-4346c3c08652)
+![image](https://github.com/HUA428571/PlaneTicketSystem2022/assets/55879217/0c559529-cf59-46f9-8568-824039944037)
+![image](https://github.com/HUA428571/PlaneTicketSystem2022/assets/55879217/29f58077-acea-489d-ad67-db77c409babf)
+![image](https://github.com/HUA428571/PlaneTicketSystem2022/assets/55879217/902b837c-47c1-40ab-9d75-0e6b228ce8b7)
+
 ## 程序使用说明
 
 * 打开“民航票务系统.exe”进入我们的程序，在程序开始会自动导入存在Data文件夹下的数据文件。**注意**，本程序的正常运行需要屏幕显示分辨率大于1280*720像素，否则可能导致程序显示不完整。
